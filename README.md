@@ -1,0 +1,2 @@
+# deiracli
+Deira CLI
