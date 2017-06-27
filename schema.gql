@@ -1,10 +1,55 @@
+type User {
+  id: ID!
+  name: String
+  email: String
+  apiProjects: [GraphQLAPIProject]
+}
 
-type Cat {
-    id: ID,
-    name: String
+type GraphQLAPIProject {
+  id: ID!
+  name: String!				
+  owner: [User]				# Owner of the project
+  apis: [GraphQLAPI] 	# One project may have multiple deployments (e.g. staging and production)
+}
+
+type GraphQLAPI {
+  id: ID!
+  host: String	# Deployment host
+  name: String	# Deployment name
+  project: GraphQLAPIProject	# Associated API project
 }
 
 type Query {
-    cat (id: ID!): Cat
-    catsList: [Cat]
+  # Currently logged-in user
+  user: User
+}
+
+type Mutation {
+  # Create a new project for logged-in user
+  createProject(name: String!): GraphQLAPIProject
+
+  # Update existing project
+  updateProject(input: ProjectInput!): GraphQLAPIProject
+
+  # Delete a project
+  deleteProject(id: ID!): GraphQLAPIProject
+
+  # Deploy (publish) a project
+  deployProject(input: DeployAPIInput!): GraphQLAPI
+
+  # Deploy API
+  deployAPI(apiId: ID!): GraphQLAPI
+
+  # Unpublish an API
+  unpublishAPI(apiId: ID!): GraphQLAPI  
+}
+
+input DeployAPIInput {
+  projectId: ID! 	# Id of the project to be deployd
+  name: String! 	# Name of the API deployment (e.g. "staging")
+}
+
+input ProjectInput {
+  projectId: ID!	# Id of the project
+  name: String			# Name of the project
 }

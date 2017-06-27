@@ -3,23 +3,23 @@
  */
 'use strict';
 
-const CATS = [
-    { id: '1', name: 'Nyan cat' },
-    { id: '2', name: 'Grumpy cat' },
-    { id: '3', name: 'Kittler' }
-];
-
 module.exports = {
     Query: {
-        cat (obj, { id }) {
-            const intId = parseInt(id, 10);
-            if (!intId || intId > CATS.length) {
-                return null;
-            }
-            return CATS[intId - 1];
+        user: (root, args, context) => {
+            return { id: '1', apiProjects: [{ id: 'oneapi' }] };
         },
-        catsList () {
-            return CATS;
+    },
+    Mutation: {
+        createProject: (root, args, context) => {
+            return { id: 'adasdasd' }
+        },
+    },
+    GraphQLAPIProject: {
+        id: () => {
+            return "twoapi"
+        },
+        name: (root, args, context) => {
+            return "Joe Doe";
         }
     }
 };
