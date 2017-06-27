@@ -1,0 +1,22 @@
+
+module.exports = {
+
+    Query: {
+
+        cat (root, {id}, source, fieldASTs) {
+            return {
+                id,
+                name: 'Cat'
+            }
+        },
+
+        catsList (root, params, source, fieldASTs) {
+            return [
+                { id: 1, name: 'Epidermis' },
+                { id: 2, name: 'Dermis' }
+            ];
+        }
+
+    }
+
+};

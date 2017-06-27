@@ -1,0 +1,10 @@
+
+type Cat {
+    id: ID,
+    name: String
+}
+
+type Query {
+    cat (id: ID!): Cat
+    catsList: [Cat]
+}
